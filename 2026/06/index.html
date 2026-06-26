@@ -6,7 +6,6 @@
 <title>AI YouTube Monthly - 2026-06</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
-
   :root {
     --bg: #0c0c0c;
     --surface: #161616;
@@ -15,527 +14,223 @@
     --text-secondary: #8a8a8a;
     --accent: #e8723a;
     --accent-dim: rgba(232, 114, 58, 0.12);
+    --claude: #d4775c;
+    --codex: #5ca3d4;
+    --agents: #7dd45c;
     --mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
     --sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: var(--sans);
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.65;
-    min-height: 100dvh;
-  }
-
-  .container {
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 4rem 2rem 6rem;
-  }
+  body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.65; min-height: 100dvh; }
+  .container { max-width: 820px; margin: 0 auto; padding: 4rem 2rem 6rem; }
 
   header { margin-bottom: 4rem; }
+  header h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 0.8rem; }
+  header .subtitle { font-family: var(--mono); font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 1.2rem; }
+  .track-nav { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .track-nav a { font-family: var(--mono); font-size: 0.7rem; padding: 0.35rem 0.8rem; border: 1px solid var(--border); border-radius: 4px; color: var(--text-secondary); text-decoration: none; transition: all 0.15s; }
+  .track-nav a:hover { border-color: var(--accent); color: var(--accent); }
+  .track-nav a.t-claude { border-color: var(--claude); color: var(--claude); }
+  .track-nav a.t-codex { border-color: var(--codex); color: var(--codex); }
+  .track-nav a.t-agents { border-color: var(--agents); color: var(--agents); }
 
-  header h1 {
-    font-size: clamp(1.8rem, 4vw, 2.4rem);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.2;
-    margin-bottom: 1rem;
-  }
+  .track { margin-bottom: 4.5rem; }
+  .track-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.8rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--border); }
+  .track-header h2 { font-size: 1.15rem; font-weight: 600; letter-spacing: -0.02em; }
+  .track-header .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .track-header .count { font-family: var(--mono); font-size: 0.68rem; color: var(--text-secondary); margin-left: auto; }
 
-  header .subtitle {
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    color: var(--text-secondary);
-    letter-spacing: 0.01em;
-    margin-bottom: 1rem;
-  }
+  .top-pick { position: relative; padding: 1.6rem 0; border-bottom: 1px solid var(--border); }
+  .top-pick:first-of-type { padding-top: 0; }
+  .top-pick .rank { font-family: var(--mono); font-size: 2.8rem; font-weight: 500; color: var(--accent-dim); position: absolute; right: 0; top: 1.6rem; line-height: 1; user-select: none; }
+  .top-pick:first-of-type .rank { top: 0; }
+  .top-pick h3 { font-size: 1.08rem; font-weight: 600; letter-spacing: -0.015em; line-height: 1.35; margin-bottom: 0.4rem; max-width: 80%; }
+  .top-pick h3 a { color: var(--text); text-decoration: none; transition: color 0.2s; }
+  .top-pick h3 a:hover { color: var(--accent); }
+  .vmeta { font-family: var(--mono); font-size: 0.68rem; color: var(--text-secondary); margin-bottom: 0.5rem; display: flex; gap: 0.4rem; flex-wrap: wrap; align-items: center; }
+  .vmeta .sep { opacity: 0.3; }
+  .top-pick .desc { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.65; max-width: 56ch; }
 
-  header .tracks {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
+  .vlist { display: grid; gap: 0; }
+  .vitem { display: grid; grid-template-columns: 1.8rem 1fr auto; gap: 0.8rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid var(--border); transition: background 0.15s; }
+  .vitem:hover { background: var(--surface); margin: 0 -0.8rem; padding-left: 0.8rem; padding-right: 0.8rem; border-radius: 5px; }
+  .vitem:last-child { border-bottom: none; }
+  .vitem .n { font-family: var(--mono); font-size: 0.65rem; color: var(--text-secondary); }
+  .vitem h4 { font-size: 0.88rem; font-weight: 500; margin-bottom: 0.15rem; }
+  .vitem h4 a { color: var(--text); text-decoration: none; transition: color 0.15s; }
+  .vitem h4 a:hover { color: var(--accent); }
+  .vitem .idesc { font-size: 0.74rem; color: var(--text-secondary); line-height: 1.45; }
+  .vitem .imeta { font-family: var(--mono); font-size: 0.62rem; color: var(--text-secondary); white-space: nowrap; }
 
-  .track-pill {
-    font-family: var(--mono);
-    font-size: 0.68rem;
-    padding: 0.3rem 0.7rem;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    color: var(--text-secondary);
-  }
+  .resources { margin-top: 3rem; padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; }
+  .resources h3 { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.8rem; }
+  .resources ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .resources a { font-size: 0.78rem; color: var(--text-secondary); text-decoration: none; transition: color 0.15s; }
+  .resources a:hover { color: var(--text); }
 
-  .track-pill.active {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  /* Section Label */
-  .section-label {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    font-weight: 500;
-    color: var(--accent);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 2rem;
-  }
-
-  /* Top 3 */
-  .top-section { margin-bottom: 4.5rem; }
-
-  .top-item {
-    position: relative;
-    padding: 2rem 0;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .top-item:first-child { padding-top: 0; }
-  .top-item:last-child { border-bottom: none; }
-
-  .top-item .rank {
-    font-family: var(--mono);
-    font-size: 3.5rem;
-    font-weight: 500;
-    color: var(--accent-dim);
-    position: absolute;
-    right: 0;
-    top: 2rem;
-    line-height: 1;
-    user-select: none;
-  }
-
-  .top-item:first-child .rank { top: 0; }
-
-  .top-item h2 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    line-height: 1.35;
-    margin-bottom: 0.5rem;
-    max-width: 82%;
-  }
-
-  .top-item h2 a {
-    color: var(--text);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .top-item h2 a:hover { color: var(--accent); }
-
-  .top-meta {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--text-secondary);
-    margin-bottom: 0.7rem;
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-
-  .top-meta .sep { opacity: 0.3; }
-
-  .track-tag {
-    font-family: var(--mono);
-    font-size: 0.62rem;
-    padding: 1px 5px;
-    border-radius: 3px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-  }
-
-  .top-item .desc {
-    font-size: 0.88rem;
-    color: var(--text-secondary);
-    line-height: 1.7;
-    max-width: 58ch;
-  }
-
-  /* Track Sections */
-  .track-section { margin-bottom: 3.5rem; }
-
-  .track-header {
-    display: flex;
-    align-items: baseline;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.6rem;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .track-header h2 {
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-  }
-
-  .track-header .count {
-    font-family: var(--mono);
-    font-size: 0.68rem;
-    color: var(--text-secondary);
-  }
-
-  .video-list { display: grid; gap: 0; }
-
-  .video-item {
-    display: grid;
-    grid-template-columns: 2rem 1fr auto;
-    gap: 1rem;
-    align-items: baseline;
-    padding: 0.9rem 0;
-    border-bottom: 1px solid var(--border);
-    transition: background 0.15s;
-  }
-
-  .video-item:hover {
-    background: var(--surface);
-    margin: 0 -1rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    border-radius: 6px;
-  }
-
-  .video-item:last-child { border-bottom: none; }
-
-  .video-item .num {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--text-secondary);
-    padding-top: 2px;
-  }
-
-  .video-item .info h3 {
-    font-size: 0.92rem;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    margin-bottom: 0.2rem;
-  }
-
-  .video-item .info h3 a {
-    color: var(--text);
-    text-decoration: none;
-    transition: color 0.15s;
-  }
-
-  .video-item .info h3 a:hover { color: var(--accent); }
-
-  .video-item .info .item-desc {
-    font-size: 0.78rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-  }
-
-  .video-item .item-meta {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    color: var(--text-secondary);
-    white-space: nowrap;
-    padding-top: 2px;
-  }
-
-  /* CTA Box */
-  .cta-box {
-    margin-top: 3rem;
-    padding: 1.8rem;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 1.5rem;
-    align-items: center;
-  }
-
-  .cta-box .info h3 {
-    font-size: 0.95rem;
-    font-weight: 600;
-    margin-bottom: 0.25rem;
-  }
-
-  .cta-box .info p {
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-  }
-
-  .cta-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--bg);
-    background: var(--accent);
-    padding: 0.55rem 1.1rem;
-    border-radius: 6px;
-    text-decoration: none;
-    transition: opacity 0.15s;
-    white-space: nowrap;
-  }
-
-  .cta-link:hover { opacity: 0.85; }
-
-  /* Footer */
-  .page-footer {
-    margin-top: 4rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--border);
-  }
-
-  .page-footer h4 {
-    font-family: var(--mono);
-    font-size: 0.68rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-bottom: 0.8rem;
-  }
-
-  .page-footer ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .page-footer a {
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: color 0.15s, border-color 0.15s;
-  }
-
-  .page-footer a:hover {
-    color: var(--text);
-    border-bottom-color: var(--border);
-  }
-
-  .date-stamp {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    color: var(--text-secondary);
-    opacity: 0.5;
-    margin-top: 1.5rem;
-  }
+  .page-footer { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+  .date-stamp { font-family: var(--mono); font-size: 0.65rem; color: var(--text-secondary); opacity: 0.5; }
 
   @media (max-width: 640px) {
     .container { padding: 2.5rem 1.2rem 4rem; }
-    .top-item .rank { display: none; }
-    .top-item h2 { max-width: 100%; }
-    .video-item { grid-template-columns: 1.5rem 1fr; }
-    .video-item .item-meta { grid-column: 2; font-size: 0.62rem; margin-top: -0.15rem; }
-    .cta-box { grid-template-columns: 1fr; text-align: center; }
+    .top-pick .rank { display: none; }
+    .top-pick h3 { max-width: 100%; }
+    .vitem { grid-template-columns: 1.5rem 1fr; }
+    .vitem .imeta { grid-column: 2; margin-top: -0.1rem; }
   }
 </style>
 </head>
 <body>
-
 <div class="container">
 
-  <header>
-    <h1>AI YouTube Monthly</h1>
-    <p class="subtitle">2026-06 / Top 10 must-watch for AI-native developers</p>
-    <div class="tracks">
-      <span class="track-pill active">Claude Coding</span>
-      <span class="track-pill active">Codex & OpenAI</span>
-      <span class="track-pill active">Open-Source Agents</span>
-    </div>
-  </header>
+<header>
+  <h1>AI YouTube Monthly</h1>
+  <p class="subtitle">2026-06 / 3 tracks x 10 picks / for experienced AI-native developers</p>
+  <nav class="track-nav">
+    <a href="#claude" class="t-claude">Claude Coding</a>
+    <a href="#codex" class="t-codex">Codex & OpenAI</a>
+    <a href="#agents" class="t-agents">Open-Source Agents</a>
+  </nav>
+</header>
 
-  <!-- Top 3 Overall -->
-  <section class="top-section">
-    <div class="section-label">Top 3</div>
-
-    <article class="top-item">
-      <span class="rank">01</span>
-      <h2><a href="https://www.youtube.com/watch?v=SlGRN8jh2RI" target="_blank">Boris Cherny: Why Coding Is Solved, and What Comes Next</a></h2>
-      <div class="top-meta">
-        <span class="track-tag">Claude</span>
-        <span class="sep">/</span>
-        <span>Sequoia AI Ascent 2026</span>
-        <span class="sep">/</span>
-        <span>2026-05-04</span>
-        <span class="sep">/</span>
-        <span>~30min</span>
-      </div>
-      <p class="desc">Claude Code 创造者在 Sequoia 顶级活动上阐述他为什么已经不写代码了，agent orchestration 的未来方向。目前最能代表 paradigm shift 的 talk，社区反响极高。</p>
-    </article>
-
-    <article class="top-item">
-      <span class="rank">02</span>
-      <h2><a href="https://www.youtube.com/watch?v=NjaX4qt-O1Y" target="_blank">How OpenAI Uses Codex to Change How We Build Software</a></h2>
-      <div class="top-meta">
-        <span class="track-tag">Codex</span>
-        <span class="sep">/</span>
-        <span>Replay 2026</span>
-        <span class="sep">/</span>
-        <span>2026-05-28</span>
-      </div>
-      <p class="desc">Dominik Kundel (Developer Experience Lead, OpenAI) 分享 OpenAI 内部如何用 Codex 改变工程团队构建软件的方式。第一手内部视角，展示真实的 internal workflow 而非 marketing demo。</p>
-    </article>
-
-    <article class="top-item">
-      <span class="rank">03</span>
-      <h2><a href="https://www.youtube.com/watch?v=DlTCu_pNDHE&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=4" target="_blank">Live Coding with Boris Cherny & Jarred Sumner</a></h2>
-      <div class="top-meta">
-        <span class="track-tag">Claude</span>
-        <span class="sep">/</span>
-        <span>Code with Claude 2026 SF</span>
-        <span class="sep">/</span>
-        <span>2026-05-06</span>
-      </div>
-      <p class="desc">Bun 创建者展示 Robobun (coding agent) 如何比他本人贡献了更多 PR。真正的 advanced agentic workflow 实战，不是 toy demo。</p>
-    </article>
-  </section>
-
-  <!-- Claude Coding Track -->
-  <section class="track-section">
-    <div class="track-header">
-      <h2>Claude Coding</h2>
-      <span class="count">4 videos</span>
-    </div>
-    <div class="video-list">
-      <article class="video-item">
-        <span class="num">04</span>
-        <div class="info">
-          <h3><a href="https://www.youtube.com/watch?v=7xco5Qd2Oo8&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=2" target="_blank">A Conversation with Dario Amodei & Daniela Amodei</a></h3>
-          <p class="item-desc">模型从个人工具跃迁到替代整个团队。Verification research 如何打开 coding 之外的领域。</p>
-        </div>
-        <span class="item-meta">05-06</span>
-      </article>
-      <article class="video-item">
-        <span class="num">05</span>
-        <div class="info">
-          <h3><a href="https://www.youtube.com/watch?v=2g8A53SIv3w" target="_blank">What's New in Claude Code</a></h3>
-          <p class="item-desc">~20 分钟密集覆盖近期新功能 (hooks, subagents, skills)。适合已在用 Claude Code 的人快速 catch up。</p>
-        </div>
-        <span class="item-meta">05-14</span>
-      </article>
-      <article class="video-item">
-        <span class="num">06</span>
-        <div class="info">
-          <h3><a href="https://www.youtube.com/watch?v=igO8iyca2_g&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=13" target="_blank">Running an AI-native Engineering Org (Fiona Fung)</a></h3>
-          <p class="item-desc">Anthropic 内部如何重构工程团队。"Claudify everything" 原则，coding 不再是瓶颈后重新定义 norms。</p>
-        </div>
-        <span class="item-meta">05-06</span>
-      </article>
-      <article class="video-item">
-        <span class="num">07</span>
-        <div class="info">
-          <h3><a href="https://www.youtube.com/watch?v=OXJO4LldSnc&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=14" target="_blank">The Thinking Lever (Matt Bleifer)</a></h3>
-          <p class="item-desc">Test-time computation 深度讲解，thinking level + model 组合的 cost/quality tradeoff 可视化。</p>
-        </div>
-        <span class="item-meta">05-06</span>
-      </article>
-    </div>
-  </section>
-
-  <!-- Codex & OpenAI Track -->
-  <section class="track-section">
-    <div class="track-header">
-      <h2>Codex & OpenAI</h2>
-      <span class="count">3 videos</span>
-    </div>
-    <div class="video-list">
-      <article class="video-item">
-        <span class="num">08</span>
-        <div class="info">
-          <h3><a href="https://www.youtube.com/watch?v=z1ISq9Ty4Cg" target="_blank">Inside OpenAI: 2026 is the Year of Agents (Alexander Embiricos)</a></h3>
-          <p class="item-desc">Codex Product Lead 深度访谈，20x 增长背后的产品决策。"Humans are AI's biggest bottleneck" 论点。</p>
-        </div>
-        <span class="item-meta">2025-12</span>
-      </article>
-      <article class="video-item">
-        <span class="num">09</span>
-        <div class="info">
-          <h3><a href="https://www.youtube.com/watch?v=eT1F2BAZJ64" target="_blank">2026: The Year of Agent Orchestration (Zach Lloyd, Warp)</a></h3>
-          <p class="item-desc">Coding Agents Conference 演讲。"Coding on your laptop is dying" - 本地开发向 agent 编排转型的趋势分析。</p>
-        </div>
-        <span class="item-meta">03-31</span>
-      </article>
-      <article class="video-item">
-        <span class="num">10</span>
-        <div class="info">
-          <h3><a href="https://www.youtube.com/watch?v=qwmmWzPnhog" target="_blank">YC Lightcone: We're All Addicted to Claude Code</a></h3>
-          <p class="item-desc">YC 合伙人圆桌讨论 coding agents 生态格局。Calvin, Diana, Harj, Garry 多角度碰撞，cross-ecosystem 视角。</p>
-        </div>
-        <span class="item-meta">02-06</span>
-      </article>
-    </div>
-  </section>
-
-  <!-- Open-Source AI Agents Track -->
-  <section class="track-section">
-    <div class="track-header">
-      <h2>Open-Source AI Agents</h2>
-      <span class="count">3 videos</span>
-    </div>
-    <div class="video-list">
-      <article class="video-item">
-        <span class="num">11</span>
-        <div class="info">
-          <h3><a href="https://www.youtube.com/watch?v=n5cYS6KuyK8" target="_blank">Flue: A Programmable AI Agent Framework That Works</a></h3>
-          <p class="item-desc">Astro 团队开源框架。将 Claude Code 的 agent harness 变成可编程、可部署的 headless 系统。刚发布 1.0 Beta。</p>
-        </div>
-        <span class="item-meta">06-03</span>
-      </article>
-      <article class="video-item">
-        <span class="num">12</span>
-        <div class="info">
-          <h3><a href="https://www.youtube.com/watch?v=fPz9OB3Bau8" target="_blank">Agent of Empires (AoE): God Mode for AI Agents</a></h3>
-          <p class="item-desc">开源 AI agent 编排工具，快速成为严肃 AI 开发者的 mission control。多 agent 协调的实践方案。</p>
-        </div>
-        <span class="item-meta">05-06</span>
-      </article>
-      <article class="video-item">
-        <span class="num">13</span>
-        <div class="info">
-          <h3><a href="https://www.youtube.com/watch?v=Pq72ylYNkJQ" target="_blank">CrewAI vs LangGraph vs MS Agent Framework 2026</a></h3>
-          <p class="item-desc">Microsoft 2026-04-07 砍掉 AutoGen 后的格局重排。5 分钟讲清楚现在该选哪个框架。</p>
-        </div>
-        <span class="item-meta">04-30</span>
-      </article>
-    </div>
-  </section>
-
-  <!-- Playlist CTA -->
-  <div class="cta-box">
-    <div class="info">
-      <h3>Code with Claude 2026 SF - Full Playlist</h3>
-      <p>全部录像 + Workshop 代码仓库。参会者评价"没有一场烂 session"。</p>
-    </div>
-    <a class="cta-link" href="https://www.youtube.com/playlist?list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR" target="_blank">Playlist</a>
+<!-- TRACK 1: Claude Coding -->
+<section class="track" id="claude">
+  <div class="track-header">
+    <div class="dot" style="background:var(--claude)"></div>
+    <h2>Claude Coding</h2>
+    <span class="count">10 videos</span>
   </div>
 
-  <div class="cta-box" style="margin-top: 1rem;">
-    <div class="info">
-      <h3>Coding Agents Conference 2026</h3>
-      <p>Computer History Museum, Mountain View. 多场 lightning talks 和深度 sessions。</p>
-    </div>
-    <a class="cta-link" href="https://www.youtube.com/playlist?list=PL3vkEKxWd-uuMAa8LDmcFEh7iMyKDJlyW" target="_blank">Playlist</a>
+  <article class="top-pick">
+    <span class="rank">01</span>
+    <h3><a href="https://www.youtube.com/watch?v=SlGRN8jh2RI" target="_blank">Boris Cherny: Why Coding Is Solved, and What Comes Next</a></h3>
+    <div class="vmeta"><span>Sequoia AI Ascent</span><span class="sep">/</span><span>05-04</span><span class="sep">/</span><span>~30min</span></div>
+    <p class="desc">Claude Code 创造者阐述为什么不再写代码。Agent orchestration 未来方向，社区最高评价的 paradigm shift talk。</p>
+  </article>
+
+  <article class="top-pick">
+    <span class="rank">02</span>
+    <h3><a href="https://www.youtube.com/watch?v=DlTCu_pNDHE&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=4" target="_blank">Live Coding with Boris Cherny & Jarred Sumner</a></h3>
+    <div class="vmeta"><span>Code with Claude SF</span><span class="sep">/</span><span>05-06</span></div>
+    <p class="desc">Robobun 比 Bun 创建者本人贡献更多 PR。真实 agentic workflow 实战，不是 demo。</p>
+  </article>
+
+  <article class="top-pick">
+    <span class="rank">03</span>
+    <h3><a href="https://www.youtube.com/watch?v=7xco5Qd2Oo8&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=2" target="_blank">A Conversation with Dario & Daniela Amodei</a></h3>
+    <div class="vmeta"><span>Code with Claude SF</span><span class="sep">/</span><span>05-06</span></div>
+    <p class="desc">模型跃迁到替代整个团队/部门，verification research 打开 coding 之外的领域。战略级。</p>
+  </article>
+
+  <div class="vlist">
+    <article class="vitem"><span class="n">04</span><div><h4><a href="https://www.youtube.com/watch?v=GMIWm5y90xA" target="_blank">Opening Keynote (SF)</a></h4><p class="idesc">产品路线图 + Claude Managed Agents 新能力</p></div><span class="imeta">05-06</span></article>
+    <article class="vitem"><span class="n">05</span><div><h4><a href="https://www.youtube.com/watch?v=2g8A53SIv3w" target="_blank">What's New in Claude Code</a></h4><p class="idesc">Hooks, subagents, skills 等新功能密集覆盖 (~20min)</p></div><span class="imeta">05-14</span></article>
+    <article class="vitem"><span class="n">06</span><div><h4><a href="https://www.youtube.com/watch?v=igO8iyca2_g&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=13" target="_blank">Running an AI-native Engineering Org</a></h4><p class="idesc">Fiona Fung: "Claudify everything"，重定义工程 norms</p></div><span class="imeta">05-06</span></article>
+    <article class="vitem"><span class="n">07</span><div><h4><a href="https://www.youtube.com/watch?v=OXJO4LldSnc&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=14" target="_blank">The Thinking Lever</a></h4><p class="idesc">Matt Bleifer: test-time computation, cost/quality tradeoff 可视化</p></div><span class="imeta">05-06</span></article>
+    <article class="vitem"><span class="n">08</span><div><h4><a href="https://www.youtube.com/watch?v=tP4MGcJ80Y0&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=10" target="_blank">The Capability Curve</a></h4><p class="idesc">Alex Albert: 模型能力指数增长曲线，evals 重要性</p></div><span class="imeta">05-06</span></article>
+    <article class="vitem"><span class="n">09</span><div><h4><a href="https://www.youtube.com/watch?v=EdmuYPBt_EM&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=9" target="_blank">How Datadog Built a Universal Machine Tool</a></h4><p class="idesc">Sesh Nalla: 企业级 Temper 框架，validation/verification 流程</p></div><span class="imeta">05-06</span></article>
+    <article class="vitem"><span class="n">10</span><div><h4><a href="https://www.youtube.com/watch?v=7oO37GRhwGk&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=8" target="_blank">Getting More Out of the Claude Platform</a></h4><p class="idesc">Brad Abrams: context management, prompt caching, advisor-executor 降本</p></div><span class="imeta">05-06</span></article>
+  </div>
+</section>
+
+<!-- TRACK 2: Codex & OpenAI -->
+<section class="track" id="codex">
+  <div class="track-header">
+    <div class="dot" style="background:var(--codex)"></div>
+    <h2>Codex & OpenAI</h2>
+    <span class="count">10 videos</span>
   </div>
 
-  <!-- Footer -->
-  <footer class="page-footer">
-    <h4>References</h4>
-    <ul>
-      <li><a href="https://chrisebert.net/code-with-claude-2026-recordings-now-available/">Code with Claude 2026 Session Recordings</a></li>
-      <li><a href="https://howborisusesclaudecode.com/">howborisusesclaudecode.com - 107 tips from the creator</a></li>
-      <li><a href="https://github.com/anthropics/cwc-workshops">anthropics/cwc-workshops (GitHub)</a></li>
-      <li><a href="https://developers.openai.com/codex/cli">OpenAI Codex CLI Official Docs</a></li>
-      <li><a href="https://flueframework.com/blog/flue-1-0-beta/">Flue 1.0 Beta Announcement</a></li>
-    </ul>
-    <p class="date-stamp">Published 2026-06-27</p>
-  </footer>
+  <article class="top-pick">
+    <span class="rank">01</span>
+    <h3><a href="https://www.youtube.com/watch?v=NjaX4qt-O1Y" target="_blank">How OpenAI Uses Codex to Change How We Build Software</a></h3>
+    <div class="vmeta"><span>Replay 2026, Dominik Kundel</span><span class="sep">/</span><span>05-28</span></div>
+    <p class="desc">OpenAI DX Lead 分享内部工程团队如何用 Codex。第一手内部视角，真实 internal workflow。</p>
+  </article>
 
+  <article class="top-pick">
+    <span class="rank">02</span>
+    <h3><a href="https://www.youtube.com/watch?v=z1ISq9Ty4Cg" target="_blank">Inside OpenAI: 2026 is the Year of Agents</a></h3>
+    <div class="vmeta"><span>Lenny's Podcast, Alexander Embiricos</span><span class="sep">/</span><span>2025-12</span></div>
+    <p class="desc">Codex Product Lead 深度访谈。20x 增长背后的产品决策，"humans are AI's biggest bottleneck"。</p>
+  </article>
+
+  <article class="top-pick">
+    <span class="rank">03</span>
+    <h3><a href="https://www.youtube.com/watch?v=tUeSxXHmE9w" target="_blank">Codex: Build Apps That Work For You 24/7</a></h3>
+    <div class="vmeta"><span>Codex Sites walkthrough</span><span class="sep">/</span><span>06-04</span></div>
+    <p class="desc">Codex Sites 端到端 walkthrough，构建真实 internal tool。对比 Codex App vs CLI vs Sites 的定位。</p>
+  </article>
+
+  <div class="vlist">
+    <article class="vitem"><span class="n">04</span><div><h4><a href="https://www.youtube.com/watch?v=mk6nv56HARM" target="_blank">OpenAI Just Put Apps Inside Codex</a></h4><p class="idesc">Codex Sites 发布解读，将 work 直接部署为 hosted apps</p></div><span class="imeta">06-02</span></article>
+    <article class="vitem"><span class="n">05</span><div><h4><a href="https://www.youtube.com/watch?v=-ZrzDuodAh8" target="_blank">Codex vs Claude Code: What I Found After 30 Days</a></h4><p class="idesc">同一项目双工具构建，RAMP workflow 对比法</p></div><span class="imeta">06-18</span></article>
+    <article class="vitem"><span class="n">06</span><div><h4><a href="https://www.youtube.com/watch?v=JMYspR42HFM" target="_blank">Claude Code vs Codex vs Cursor (honest comparison)</a></h4><p class="idesc">三大 coding agent 正面对比，benchmark + 实际使用感受</p></div><span class="imeta">05-26</span></article>
+    <article class="vitem"><span class="n">07</span><div><h4><a href="https://www.youtube.com/watch?v=DLSK4wLK544" target="_blank">How I Use OpenAI Codex (Real Workflow)</a></h4><p class="idesc">日常高级用法：CLI + Desktop + Skills 协同</p></div><span class="imeta">04-25</span></article>
+    <article class="vitem"><span class="n">08</span><div><h4><a href="https://www.youtube.com/watch?v=_Rvh1nK4zf0" target="_blank">Parallel AI Agents with OpenAI Codex</a></h4><p class="idesc">多 agent 并行设置，agentic engineering 实操教程</p></div><span class="imeta">02-23</span></article>
+    <article class="vitem"><span class="n">09</span><div><h4><a href="https://www.youtube.com/watch?v=MsJzacfjzp8" target="_blank">OpenAI Adds Agent Skills to Codex (First Look)</a></h4><p class="idesc">OpenAI 采纳 Anthropic 的 Skills spec，跨生态互通</p></div><span class="imeta">2025-12</span></article>
+    <article class="vitem"><span class="n">10</span><div><h4><a href="https://www.youtube.com/watch?v=3DhgRoP54H8" target="_blank">Codex vs Claude Code: Why Top Devs Use Both</a></h4><p class="idesc">双工具 workflow + benchmarks + pricing 对比</p></div><span class="imeta">05-04</span></article>
+  </div>
+</section>
+
+<!-- TRACK 3: Open-Source AI Agents -->
+<section class="track" id="agents">
+  <div class="track-header">
+    <div class="dot" style="background:var(--agents)"></div>
+    <h2>Open-Source AI Agents</h2>
+    <span class="count">10 videos</span>
+  </div>
+
+  <article class="top-pick">
+    <span class="rank">01</span>
+    <h3><a href="https://www.youtube.com/watch?v=n5cYS6KuyK8" target="_blank">Flue: A Programmable AI Agent Framework That Works</a></h3>
+    <div class="vmeta"><span>Astro team</span><span class="sep">/</span><span>06-03</span></div>
+    <p class="desc">Astro 团队开源框架，把 agent harness 变成可编程 headless 系统。刚发 1.0 Beta，可部署到 Cloudflare。</p>
+  </article>
+
+  <article class="top-pick">
+    <span class="rank">02</span>
+    <h3><a href="https://www.youtube.com/watch?v=fPz9OB3Bau8" target="_blank">Agent of Empires (AoE): God Mode for AI Agents</a></h3>
+    <div class="vmeta"><span>Open-source orchestration</span><span class="sep">/</span><span>05-06</span></div>
+    <p class="desc">开源 AI agent mission control，快速成为严肃开发者的多 agent 协调中心。</p>
+  </article>
+
+  <article class="top-pick">
+    <span class="rank">03</span>
+    <h3><a href="https://www.youtube.com/watch?v=PvIDa_U2Uc8" target="_blank">Previewing Agent Canvas: Open Source AI Coding Platform</a></h3>
+    <div class="vmeta"><span>OpenHands</span><span class="sep">/</span><span>05-28</span></div>
+    <p class="desc">OpenHands 最新自托管 AI coding workspace。Browser-based，完全 self-hostable。</p>
+  </article>
+
+  <div class="vlist">
+    <article class="vitem"><span class="n">04</span><div><h4><a href="https://www.youtube.com/watch?v=Pq72ylYNkJQ" target="_blank">CrewAI vs LangGraph vs MS Agent Framework 2026</a></h4><p class="idesc">Microsoft 砍掉 AutoGen 后格局重排，5 分钟讲清该选谁</p></div><span class="imeta">04-30</span></article>
+    <article class="vitem"><span class="n">05</span><div><h4><a href="https://www.youtube.com/watch?v=3BYrnBDSoPo" target="_blank">Multi AI Agent Orchestration Tier List</a></h4><p class="idesc">7+ 框架实测排名，附实际性能对比</p></div><span class="imeta">05-06</span></article>
+    <article class="vitem"><span class="n">06</span><div><h4><a href="https://www.youtube.com/watch?v=kE6x7xKy4lM" target="_blank">My OpenCode Multi-Agent Workflow (Local AI)</a></h4><p class="idesc">完全本地多 agent 流程：planner + coder + reviewer</p></div><span class="imeta">04-21</span></article>
+    <article class="vitem"><span class="n">07</span><div><h4><a href="https://www.youtube.com/watch?v=RWT3sh68PWE" target="_blank">Introducing Multi-Agent Orchestration (Oz)</a></h4><p class="idesc">Warp 的 Oz 框架，agent memory + orchestration</p></div><span class="imeta">05-19</span></article>
+    <article class="vitem"><span class="n">08</span><div><h4><a href="https://www.youtube.com/watch?v=eT1F2BAZJ64" target="_blank">2026: The Year of Agent Orchestration</a></h4><p class="idesc">Zach Lloyd (Warp) at Coding Agents Conf: "coding on your laptop is dying"</p></div><span class="imeta">03-31</span></article>
+    <article class="vitem"><span class="n">09</span><div><h4><a href="https://www.youtube.com/watch?v=j79iwj0p66k" target="_blank">Superpowers: This FREE Way Fixes AI Coding</a></h4><p class="idesc">obra/superpowers (239k stars) 深度解读，skills-driven 方法论</p></div><span class="imeta">03-31</span></article>
+    <article class="vitem"><span class="n">10</span><div><h4><a href="https://www.youtube.com/watch?v=s6-Ofu-uu2k" target="_blank">Google ADK + A2A + MCP Crash Course</a></h4><p class="idesc">跨框架 agent 通信：ADK + A2A protocol + MCP 一次讲清</p></div><span class="imeta">2025-06</span></article>
+  </div>
+</section>
+
+<!-- Resources -->
+<div class="resources">
+  <h3>Playlists & Resources</h3>
+  <ul>
+    <li><a href="https://www.youtube.com/playlist?list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR" target="_blank">Code with Claude 2026 SF - Full Playlist</a></li>
+    <li><a href="https://www.youtube.com/playlist?list=PL3vkEKxWd-uuMAa8LDmcFEh7iMyKDJlyW" target="_blank">Coding Agents Conference 2026</a></li>
+    <li><a href="https://www.youtube.com/playlist?list=PL6tW9BrhiPTAZts0W5nQS9dbW6VMnLKab" target="_blank">Google ADK Course Series</a></li>
+    <li><a href="https://howborisusesclaudecode.com/" target="_blank">howborisusesclaudecode.com - 107 tips</a></li>
+    <li><a href="https://developers.openai.com/codex/cli" target="_blank">OpenAI Codex CLI Docs</a></li>
+    <li><a href="https://flueframework.com/blog/flue-1-0-beta/" target="_blank">Flue 1.0 Beta</a></li>
+    <li><a href="https://github.com/anthropics/cwc-workshops" target="_blank">anthropics/cwc-workshops</a></li>
+  </ul>
 </div>
 
+<footer class="page-footer">
+  <p class="date-stamp">Published 2026-06-27</p>
+</footer>
+
+</div>
 </body>
 </html>

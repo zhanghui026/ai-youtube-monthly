@@ -2,15 +2,17 @@
 
 A monthly curated list of the top 10 must-watch YouTube videos for AI-native developers.
 
-## Topics
+## Format
 
-Each monthly issue covers three verticals:
+Each monthly issue contains **3 tracks x 10 videos = 30 curated picks**.
 
 | Track | Scope |
 |-------|-------|
 | **Claude Coding** | Claude Code, Anthropic official, agentic workflows, hooks/skills/subagents |
-| **Codex & OpenAI** | OpenAI Codex CLI, ChatGPT coding, GPT-based agents, Assistants API |
-| **Open-Source AI Agents** | LangChain, CrewAI, AutoGen, OpenDevin, SWE-agent, community frameworks |
+| **Codex & OpenAI** | OpenAI Codex CLI, ChatGPT coding, GPT-based agents, Codex Sites |
+| **Open-Source AI Agents** | Flue, OpenHands, CrewAI, LangGraph, Google ADK, A2A, community frameworks |
+
+Each track has its own ranked top 10 with top 3 featured prominently.
 
 ## Selection Criteria
 
