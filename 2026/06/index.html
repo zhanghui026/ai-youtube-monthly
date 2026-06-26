@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Claude 必看 YouTube 视频 Top 10 (2026年6月)</title>
+<title>AI YouTube Monthly - 2026-06</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
 
@@ -35,7 +35,6 @@
     padding: 4rem 2rem 6rem;
   }
 
-  /* Header */
   header { margin-bottom: 4rem; }
 
   header h1 {
@@ -46,16 +45,35 @@
     margin-bottom: 1rem;
   }
 
-  header p {
+  header .subtitle {
     font-family: var(--mono);
     font-size: 0.78rem;
     color: var(--text-secondary);
     letter-spacing: 0.01em;
+    margin-bottom: 1rem;
   }
 
-  /* Top 3 Section */
-  .top-section { margin-bottom: 4.5rem; }
+  header .tracks {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
 
+  .track-pill {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-secondary);
+  }
+
+  .track-pill.active {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* Section Label */
   .section-label {
     font-family: var(--mono);
     font-size: 0.7rem;
@@ -65,6 +83,9 @@
     text-transform: uppercase;
     margin-bottom: 2rem;
   }
+
+  /* Top 3 */
+  .top-section { margin-bottom: 4.5rem; }
 
   .top-item {
     position: relative;
@@ -90,12 +111,12 @@
   .top-item:first-child .rank { top: 0; }
 
   .top-item h2 {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 600;
     letter-spacing: -0.02em;
     line-height: 1.35;
-    margin-bottom: 0.6rem;
-    max-width: 85%;
+    margin-bottom: 0.5rem;
+    max-width: 82%;
   }
 
   .top-item h2 a {
@@ -108,9 +129,9 @@
 
   .top-meta {
     font-family: var(--mono);
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     color: var(--text-secondary);
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.7rem;
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
@@ -119,32 +140,59 @@
 
   .top-meta .sep { opacity: 0.3; }
 
+  .track-tag {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    padding: 1px 5px;
+    border-radius: 3px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+
   .top-item .desc {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     color: var(--text-secondary);
     line-height: 1.7;
-    max-width: 60ch;
+    max-width: 58ch;
   }
 
-  /* Rest Section (4-10) */
-  .rest-section { margin-bottom: 4rem; }
+  /* Track Sections */
+  .track-section { margin-bottom: 3.5rem; }
 
-  .rest-grid {
-    display: grid;
-    gap: 0;
+  .track-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border);
   }
 
-  .rest-item {
+  .track-header h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .track-header .count {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--text-secondary);
+  }
+
+  .video-list { display: grid; gap: 0; }
+
+  .video-item {
     display: grid;
     grid-template-columns: 2rem 1fr auto;
     gap: 1rem;
     align-items: baseline;
-    padding: 1rem 0;
+    padding: 0.9rem 0;
     border-bottom: 1px solid var(--border);
     transition: background 0.15s;
   }
 
-  .rest-item:hover {
+  .video-item:hover {
     background: var(--surface);
     margin: 0 -1rem;
     padding-left: 1rem;
@@ -152,48 +200,48 @@
     border-radius: 6px;
   }
 
-  .rest-item:last-child { border-bottom: none; }
+  .video-item:last-child { border-bottom: none; }
 
-  .rest-item .num {
+  .video-item .num {
     font-family: var(--mono);
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     color: var(--text-secondary);
     padding-top: 2px;
   }
 
-  .rest-item .info h3 {
-    font-size: 0.95rem;
+  .video-item .info h3 {
+    font-size: 0.92rem;
     font-weight: 500;
     letter-spacing: -0.01em;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.2rem;
   }
 
-  .rest-item .info h3 a {
+  .video-item .info h3 a {
     color: var(--text);
     text-decoration: none;
     transition: color 0.15s;
   }
 
-  .rest-item .info h3 a:hover { color: var(--accent); }
+  .video-item .info h3 a:hover { color: var(--accent); }
 
-  .rest-item .info .rest-desc {
-    font-size: 0.8rem;
+  .video-item .info .item-desc {
+    font-size: 0.78rem;
     color: var(--text-secondary);
     line-height: 1.5;
   }
 
-  .rest-item .rest-meta {
+  .video-item .item-meta {
     font-family: var(--mono);
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     color: var(--text-secondary);
     white-space: nowrap;
     padding-top: 2px;
   }
 
-  /* Playlist CTA */
-  .playlist-cta {
-    margin-top: 4rem;
-    padding: 2rem;
+  /* CTA Box */
+  .cta-box {
+    margin-top: 3rem;
+    padding: 1.8rem;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -203,14 +251,14 @@
     align-items: center;
   }
 
-  .playlist-cta .info h3 {
-    font-size: 1rem;
+  .cta-box .info h3 {
+    font-size: 0.95rem;
     font-weight: 600;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.25rem;
   }
 
-  .playlist-cta .info p {
-    font-size: 0.82rem;
+  .cta-box .info p {
+    font-size: 0.8rem;
     color: var(--text-secondary);
   }
 
@@ -219,11 +267,11 @@
     align-items: center;
     gap: 0.4rem;
     font-family: var(--mono);
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     font-weight: 500;
     color: var(--bg);
     background: var(--accent);
-    padding: 0.6rem 1.2rem;
+    padding: 0.55rem 1.1rem;
     border-radius: 6px;
     text-decoration: none;
     transition: opacity 0.15s;
@@ -232,58 +280,58 @@
 
   .cta-link:hover { opacity: 0.85; }
 
-  /* References */
-  .refs {
-    margin-top: 3.5rem;
+  /* Footer */
+  .page-footer {
+    margin-top: 4rem;
     padding-top: 2rem;
     border-top: 1px solid var(--border);
   }
 
-  .refs h4 {
+  .page-footer h4 {
     font-family: var(--mono);
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     font-weight: 500;
     color: var(--text-secondary);
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
   }
 
-  .refs ul {
+  .page-footer ul {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.5rem;
   }
 
-  .refs a {
-    font-size: 0.82rem;
+  .page-footer a {
+    font-size: 0.8rem;
     color: var(--text-secondary);
     text-decoration: none;
     border-bottom: 1px solid transparent;
     transition: color 0.15s, border-color 0.15s;
   }
 
-  .refs a:hover {
+  .page-footer a:hover {
     color: var(--text);
     border-bottom-color: var(--border);
   }
 
   .date-stamp {
     font-family: var(--mono);
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     color: var(--text-secondary);
-    opacity: 0.6;
-    margin-top: 2rem;
+    opacity: 0.5;
+    margin-top: 1.5rem;
   }
 
-  /* Mobile */
   @media (max-width: 640px) {
     .container { padding: 2.5rem 1.2rem 4rem; }
     .top-item .rank { display: none; }
-    .rest-item { grid-template-columns: 1.5rem 1fr; }
-    .rest-item .rest-meta { grid-column: 2; font-size: 0.65rem; margin-top: -0.2rem; }
-    .playlist-cta { grid-template-columns: 1fr; text-align: center; }
+    .top-item h2 { max-width: 100%; }
+    .video-item { grid-template-columns: 1.5rem 1fr; }
+    .video-item .item-meta { grid-column: 2; font-size: 0.62rem; margin-top: -0.15rem; }
+    .cta-box { grid-template-columns: 1fr; text-align: center; }
   }
 </style>
 </head>
@@ -292,11 +340,16 @@
 <div class="container">
 
   <header>
-    <h1>Claude 必看 YouTube 视频 Top 10</h1>
-    <p>2026-06 / 面向有经验的 Claude 开发者 / 排除入门和 vibe coding 基础</p>
+    <h1>AI YouTube Monthly</h1>
+    <p class="subtitle">2026-06 / Top 10 must-watch for AI-native developers</p>
+    <div class="tracks">
+      <span class="track-pill active">Claude Coding</span>
+      <span class="track-pill active">Codex & OpenAI</span>
+      <span class="track-pill active">Open-Source Agents</span>
+    </div>
   </header>
 
-  <!-- Top 3 -->
+  <!-- Top 3 Overall -->
   <section class="top-section">
     <div class="section-label">Top 3</div>
 
@@ -304,6 +357,8 @@
       <span class="rank">01</span>
       <h2><a href="https://www.youtube.com/watch?v=SlGRN8jh2RI" target="_blank">Boris Cherny: Why Coding Is Solved, and What Comes Next</a></h2>
       <div class="top-meta">
+        <span class="track-tag">Claude</span>
+        <span class="sep">/</span>
         <span>Sequoia AI Ascent 2026</span>
         <span class="sep">/</span>
         <span>2026-05-04</span>
@@ -315,116 +370,169 @@
 
     <article class="top-item">
       <span class="rank">02</span>
+      <h2><a href="https://www.youtube.com/watch?v=NjaX4qt-O1Y" target="_blank">How OpenAI Uses Codex to Change How We Build Software</a></h2>
+      <div class="top-meta">
+        <span class="track-tag">Codex</span>
+        <span class="sep">/</span>
+        <span>Replay 2026</span>
+        <span class="sep">/</span>
+        <span>2026-05-28</span>
+      </div>
+      <p class="desc">Dominik Kundel (Developer Experience Lead, OpenAI) 分享 OpenAI 内部如何用 Codex 改变工程团队构建软件的方式。第一手内部视角，展示真实的 internal workflow 而非 marketing demo。</p>
+    </article>
+
+    <article class="top-item">
+      <span class="rank">03</span>
       <h2><a href="https://www.youtube.com/watch?v=DlTCu_pNDHE&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=4" target="_blank">Live Coding with Boris Cherny & Jarred Sumner</a></h2>
       <div class="top-meta">
+        <span class="track-tag">Claude</span>
+        <span class="sep">/</span>
         <span>Code with Claude 2026 SF</span>
         <span class="sep">/</span>
         <span>2026-05-06</span>
       </div>
       <p class="desc">Bun 创建者展示 Robobun (coding agent) 如何比他本人贡献了更多 PR。真正的 advanced agentic workflow 实战，不是 toy demo。</p>
     </article>
-
-    <article class="top-item">
-      <span class="rank">03</span>
-      <h2><a href="https://www.youtube.com/watch?v=7xco5Qd2Oo8&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=2" target="_blank">A Conversation with Dario Amodei & Daniela Amodei</a></h2>
-      <div class="top-meta">
-        <span>Code with Claude 2026 SF</span>
-        <span class="sep">/</span>
-        <span>2026-05-06</span>
-      </div>
-      <p class="desc">模型即将从个人生产力工具跃迁到替代整个团队和部门。讨论 verification research 如何打开 coding 之外的领域。战略级视野。</p>
-    </article>
   </section>
 
-  <!-- 4-10 -->
-  <section class="rest-section">
-    <div class="section-label">Also worth watching</div>
-
-    <div class="rest-grid">
-      <article class="rest-item">
+  <!-- Claude Coding Track -->
+  <section class="track-section">
+    <div class="track-header">
+      <h2>Claude Coding</h2>
+      <span class="count">4 videos</span>
+    </div>
+    <div class="video-list">
+      <article class="video-item">
         <span class="num">04</span>
         <div class="info">
-          <h3><a href="https://www.youtube.com/watch?v=GMIWm5y90xA" target="_blank">Code with Claude 2026: Opening Keynote (SF)</a></h3>
-          <p class="rest-desc">产品路线图 + Claude Managed Agents 新能力。大会全局 overview。</p>
+          <h3><a href="https://www.youtube.com/watch?v=7xco5Qd2Oo8&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=2" target="_blank">A Conversation with Dario Amodei & Daniela Amodei</a></h3>
+          <p class="item-desc">模型从个人工具跃迁到替代整个团队。Verification research 如何打开 coding 之外的领域。</p>
         </div>
-        <span class="rest-meta">05-06</span>
+        <span class="item-meta">05-06</span>
       </article>
-
-      <article class="rest-item">
+      <article class="video-item">
         <span class="num">05</span>
         <div class="info">
           <h3><a href="https://www.youtube.com/watch?v=2g8A53SIv3w" target="_blank">What's New in Claude Code</a></h3>
-          <p class="rest-desc">密集覆盖近期新功能 (hooks, subagents, skills)。适合已在用 Claude Code 的人快速 catch up。</p>
+          <p class="item-desc">~20 分钟密集覆盖近期新功能 (hooks, subagents, skills)。适合已在用 Claude Code 的人快速 catch up。</p>
         </div>
-        <span class="rest-meta">05-14</span>
+        <span class="item-meta">05-14</span>
       </article>
-
-      <article class="rest-item">
+      <article class="video-item">
         <span class="num">06</span>
         <div class="info">
-          <h3><a href="https://www.youtube.com/watch?v=igO8iyca2_g&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=13" target="_blank">Running an AI-native Engineering Org</a></h3>
-          <p class="rest-desc">Fiona Fung 分享 Anthropic 内部如何重构工程团队。"Claudify everything" 原则。</p>
+          <h3><a href="https://www.youtube.com/watch?v=igO8iyca2_g&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=13" target="_blank">Running an AI-native Engineering Org (Fiona Fung)</a></h3>
+          <p class="item-desc">Anthropic 内部如何重构工程团队。"Claudify everything" 原则，coding 不再是瓶颈后重新定义 norms。</p>
         </div>
-        <span class="rest-meta">05-06</span>
+        <span class="item-meta">05-06</span>
       </article>
-
-      <article class="rest-item">
+      <article class="video-item">
         <span class="num">07</span>
         <div class="info">
-          <h3><a href="https://www.youtube.com/watch?v=OXJO4LldSnc&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=14" target="_blank">The Thinking Lever</a></h3>
-          <p class="rest-desc">Matt Bleifer 深入讲解 test-time computation，thinking level + model 组合的 cost/quality tradeoff。</p>
+          <h3><a href="https://www.youtube.com/watch?v=OXJO4LldSnc&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=14" target="_blank">The Thinking Lever (Matt Bleifer)</a></h3>
+          <p class="item-desc">Test-time computation 深度讲解，thinking level + model 组合的 cost/quality tradeoff 可视化。</p>
         </div>
-        <span class="rest-meta">05-06</span>
+        <span class="item-meta">05-06</span>
       </article>
+    </div>
+  </section>
 
-      <article class="rest-item">
+  <!-- Codex & OpenAI Track -->
+  <section class="track-section">
+    <div class="track-header">
+      <h2>Codex & OpenAI</h2>
+      <span class="count">3 videos</span>
+    </div>
+    <div class="video-list">
+      <article class="video-item">
         <span class="num">08</span>
         <div class="info">
-          <h3><a href="https://www.youtube.com/watch?v=tP4MGcJ80Y0&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=10" target="_blank">The Capability Curve</a></h3>
-          <p class="rest-desc">Alex Albert 阐述模型能力指数增长曲线，强调 evals 重要性。</p>
+          <h3><a href="https://www.youtube.com/watch?v=z1ISq9Ty4Cg" target="_blank">Inside OpenAI: 2026 is the Year of Agents (Alexander Embiricos)</a></h3>
+          <p class="item-desc">Codex Product Lead 深度访谈，20x 增长背后的产品决策。"Humans are AI's biggest bottleneck" 论点。</p>
         </div>
-        <span class="rest-meta">05-06</span>
+        <span class="item-meta">2025-12</span>
       </article>
-
-      <article class="rest-item">
+      <article class="video-item">
         <span class="num">09</span>
         <div class="info">
-          <h3><a href="https://www.youtube.com/watch?v=EdmuYPBt_EM&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=9" target="_blank">How Datadog Built a Universal Machine Tool for Claude Code</a></h3>
-          <p class="rest-desc">Sesh Nalla 分享企业级 agentic 开发框架 Temper。工程师从写代码变成引导系统演化。</p>
+          <h3><a href="https://www.youtube.com/watch?v=eT1F2BAZJ64" target="_blank">2026: The Year of Agent Orchestration (Zach Lloyd, Warp)</a></h3>
+          <p class="item-desc">Coding Agents Conference 演讲。"Coding on your laptop is dying" - 本地开发向 agent 编排转型的趋势分析。</p>
         </div>
-        <span class="rest-meta">05-06</span>
+        <span class="item-meta">03-31</span>
       </article>
-
-      <article class="rest-item">
+      <article class="video-item">
         <span class="num">10</span>
         <div class="info">
-          <h3><a href="https://www.youtube.com/watch?v=7oO37GRhwGk&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=8" target="_blank">Getting More Out of the Claude Platform</a></h3>
-          <p class="rest-desc">Brad Abrams 讲解 context management + prompt caching 优化，advisor-executor 降本策略。</p>
+          <h3><a href="https://www.youtube.com/watch?v=qwmmWzPnhog" target="_blank">YC Lightcone: We're All Addicted to Claude Code</a></h3>
+          <p class="item-desc">YC 合伙人圆桌讨论 coding agents 生态格局。Calvin, Diana, Harj, Garry 多角度碰撞，cross-ecosystem 视角。</p>
         </div>
-        <span class="rest-meta">05-06</span>
+        <span class="item-meta">02-06</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- Open-Source AI Agents Track -->
+  <section class="track-section">
+    <div class="track-header">
+      <h2>Open-Source AI Agents</h2>
+      <span class="count">3 videos</span>
+    </div>
+    <div class="video-list">
+      <article class="video-item">
+        <span class="num">11</span>
+        <div class="info">
+          <h3><a href="https://www.youtube.com/watch?v=n5cYS6KuyK8" target="_blank">Flue: A Programmable AI Agent Framework That Works</a></h3>
+          <p class="item-desc">Astro 团队开源框架。将 Claude Code 的 agent harness 变成可编程、可部署的 headless 系统。刚发布 1.0 Beta。</p>
+        </div>
+        <span class="item-meta">06-03</span>
+      </article>
+      <article class="video-item">
+        <span class="num">12</span>
+        <div class="info">
+          <h3><a href="https://www.youtube.com/watch?v=fPz9OB3Bau8" target="_blank">Agent of Empires (AoE): God Mode for AI Agents</a></h3>
+          <p class="item-desc">开源 AI agent 编排工具，快速成为严肃 AI 开发者的 mission control。多 agent 协调的实践方案。</p>
+        </div>
+        <span class="item-meta">05-06</span>
+      </article>
+      <article class="video-item">
+        <span class="num">13</span>
+        <div class="info">
+          <h3><a href="https://www.youtube.com/watch?v=Pq72ylYNkJQ" target="_blank">CrewAI vs LangGraph vs MS Agent Framework 2026</a></h3>
+          <p class="item-desc">Microsoft 2026-04-07 砍掉 AutoGen 后的格局重排。5 分钟讲清楚现在该选哪个框架。</p>
+        </div>
+        <span class="item-meta">04-30</span>
       </article>
     </div>
   </section>
 
   <!-- Playlist CTA -->
-  <div class="playlist-cta">
+  <div class="cta-box">
     <div class="info">
       <h3>Code with Claude 2026 SF - Full Playlist</h3>
-      <p>全部录像，参会者评价"没有一场烂 session"。Workshop 代码仓库公开在 GitHub。</p>
+      <p>全部录像 + Workshop 代码仓库。参会者评价"没有一场烂 session"。</p>
     </div>
-    <a class="cta-link" href="https://www.youtube.com/playlist?list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR" target="_blank">Open Playlist</a>
+    <a class="cta-link" href="https://www.youtube.com/playlist?list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR" target="_blank">Playlist</a>
   </div>
 
-  <!-- References -->
-  <footer class="refs">
+  <div class="cta-box" style="margin-top: 1rem;">
+    <div class="info">
+      <h3>Coding Agents Conference 2026</h3>
+      <p>Computer History Museum, Mountain View. 多场 lightning talks 和深度 sessions。</p>
+    </div>
+    <a class="cta-link" href="https://www.youtube.com/playlist?list=PL3vkEKxWd-uuMAa8LDmcFEh7iMyKDJlyW" target="_blank">Playlist</a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="page-footer">
     <h4>References</h4>
     <ul>
-      <li><a href="https://chrisebert.net/code-with-claude-2026-recordings-now-available/">Session 总结 & 录像汇总</a></li>
-      <li><a href="https://chrisebert.net/notes-from-code-with-claude-2026/">Code with Claude 2026 参会笔记</a></li>
-      <li><a href="https://howborisusesclaudecode.com/">howborisusesclaudecode.com - 107 条使用技巧</a></li>
+      <li><a href="https://chrisebert.net/code-with-claude-2026-recordings-now-available/">Code with Claude 2026 Session Recordings</a></li>
+      <li><a href="https://howborisusesclaudecode.com/">howborisusesclaudecode.com - 107 tips from the creator</a></li>
       <li><a href="https://github.com/anthropics/cwc-workshops">anthropics/cwc-workshops (GitHub)</a></li>
+      <li><a href="https://developers.openai.com/codex/cli">OpenAI Codex CLI Official Docs</a></li>
+      <li><a href="https://flueframework.com/blog/flue-1-0-beta/">Flue 1.0 Beta Announcement</a></li>
     </ul>
-    <p class="date-stamp">Curated 2026-06-27</p>
+    <p class="date-stamp">Published 2026-06-27</p>
   </footer>
 
 </div>
