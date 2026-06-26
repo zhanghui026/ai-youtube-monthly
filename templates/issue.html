@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI YouTube Monthly - {{MONTH_LABEL}}</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0c0c0c;
+    --surface: #161616;
+    --border: #262626;
+    --text: #e4e4e4;
+    --text-secondary: #8a8a8a;
+    --accent: #e8723a;
+    --accent-dim: rgba(232, 114, 58, 0.12);
+    --mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+    --sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    min-height: 100dvh;
+  }
+
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 4rem 2rem 6rem;
+  }
+
+  /* Header */
+  header { margin-bottom: 4rem; }
+
+  header h1 {
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  header .subtitle {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.01em;
+    margin-bottom: 0.6rem;
+  }
+
+  header .tracks {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  header .track-pill {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-secondary);
+  }
+
+  /* Track Section */
+  .track-section {
+    margin-bottom: 4rem;
+  }
+
+  .track-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .track-header h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .track-header .count {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+  }
+
+  /* Top Pick (rank 1 per track or overall) */
+  .top-pick {
+    position: relative;
+    padding: 1.8rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .top-pick:first-of-type { padding-top: 0; }
+  .top-pick:last-of-type { border-bottom: none; }
+
+  .top-pick .rank {
+    font-family: var(--mono);
+    font-size: 3rem;
+    font-weight: 500;
+    color: var(--accent-dim);
+    position: absolute;
+    right: 0;
+    top: 1.8rem;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .top-pick:first-of-type .rank { top: 0; }
+
+  .top-pick h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.35;
+    margin-bottom: 0.5rem;
+    max-width: 85%;
+  }
+
+  .top-pick h3 a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .top-pick h3 a:hover { color: var(--accent); }
+
+  .video-meta {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.7rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .video-meta .sep { opacity: 0.3; }
+
+  .top-pick .desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 58ch;
+  }
+
+  /* List Items (non-top) */
+  .video-list { display: grid; gap: 0; }
+
+  .video-item {
+    display: grid;
+    grid-template-columns: 2rem 1fr auto;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+
+  .video-item:hover {
+    background: var(--surface);
+    margin: 0 -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-radius: 6px;
+  }
+
+  .video-item:last-child { border-bottom: none; }
+
+  .video-item .num {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    padding-top: 2px;
+  }
+
+  .video-item .info h4 {
+    font-size: 0.92rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.2rem;
+  }
+
+  .video-item .info h4 a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .video-item .info h4 a:hover { color: var(--accent); }
+
+  .video-item .info .item-desc {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .video-item .item-meta {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    padding-top: 2px;
+  }
+
+  /* CTA Box */
+  .cta-box {
+    margin-top: 3rem;
+    padding: 1.8rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .cta-box .info h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .cta-box .info p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+
+  .cta-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 0.55rem 1.1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: opacity 0.15s;
+    white-space: nowrap;
+  }
+
+  .cta-link:hover { opacity: 0.85; }
+
+  /* Footer */
+  .page-footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .page-footer h4 {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+
+  .page-footer ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .page-footer a {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .page-footer a:hover {
+    color: var(--text);
+    border-bottom-color: var(--border);
+  }
+
+  .date-stamp {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    opacity: 0.5;
+    margin-top: 1.5rem;
+  }
+
+  /* Nav between issues */
+  .issue-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .issue-nav a {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .issue-nav a:hover { color: var(--accent); }
+  .issue-nav .disabled { opacity: 0.3; pointer-events: none; }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    .container { padding: 2.5rem 1.2rem 4rem; }
+    .top-pick .rank { display: none; }
+    .video-item { grid-template-columns: 1.5rem 1fr; }
+    .video-item .item-meta { grid-column: 2; font-size: 0.62rem; margin-top: -0.15rem; }
+    .cta-box { grid-template-columns: 1fr; text-align: center; }
+    header .tracks { gap: 0.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <h1>AI YouTube Monthly</h1>
+    <p class="subtitle">{{MONTH_LABEL}} / Top 10 must-watch videos for AI-native developers</p>
+    <div class="tracks">
+      <span class="track-pill">Claude Coding</span>
+      <span class="track-pill">Codex & OpenAI</span>
+      <span class="track-pill">Open-Source AI Agents</span>
+    </div>
+  </header>
+
+  <!--
+    TEMPLATE USAGE:
+    1. Copy this file to YYYY/MM/index.html
+    2. Replace {{MONTH_LABEL}} with e.g. "2026-07"
+    3. Fill in track sections with researched videos
+    4. Each track gets 3-4 videos; rank top 3 overall
+    5. Use .top-pick for featured items, .video-item for the rest
+  -->
+
+  <!-- Example Track Section -->
+  <section class="track-section">
+    <div class="track-header">
+      <h2>Claude Coding</h2>
+      <span class="count">4 videos</span>
+    </div>
+
+    <article class="top-pick">
+      <span class="rank">01</span>
+      <h3><a href="{{URL}}" target="_blank">{{VIDEO_TITLE}}</a></h3>
+      <div class="video-meta">
+        <span>{{SOURCE}}</span>
+        <span class="sep">/</span>
+        <span>{{DATE}}</span>
+        <span class="sep">/</span>
+        <span>{{DURATION}}</span>
+      </div>
+      <p class="desc">{{DESCRIPTION}}</p>
+    </article>
+
+    <div class="video-list">
+      <article class="video-item">
+        <span class="num">02</span>
+        <div class="info">
+          <h4><a href="{{URL}}" target="_blank">{{VIDEO_TITLE}}</a></h4>
+          <p class="item-desc">{{DESCRIPTION}}</p>
+        </div>
+        <span class="item-meta">{{DATE_SHORT}}</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- Repeat for other tracks -->
+
+  <!-- Navigation -->
+  <nav class="issue-nav">
+    <a href="../{{PREV_MONTH}}/index.html" class="disabled">Prev Issue</a>
+    <a href="../{{NEXT_MONTH}}/index.html" class="disabled">Next Issue</a>
+  </nav>
+
+  <footer class="page-footer">
+    <h4>References</h4>
+    <ul>
+      <li><a href="{{REF_URL}}">{{REF_TITLE}}</a></li>
+    </ul>
+    <p class="date-stamp">Published {{PUBLISH_DATE}}</p>
+  </footer>
+
+</div>
+
+</body>
+</html>

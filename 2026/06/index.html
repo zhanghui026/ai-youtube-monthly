@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude 必看 YouTube 视频 Top 10 (2026年6月)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0c0c0c;
+    --surface: #161616;
+    --border: #262626;
+    --text: #e4e4e4;
+    --text-secondary: #8a8a8a;
+    --accent: #e8723a;
+    --accent-dim: rgba(232, 114, 58, 0.12);
+    --mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+    --sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    min-height: 100dvh;
+  }
+
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 4rem 2rem 6rem;
+  }
+
+  /* Header */
+  header { margin-bottom: 4rem; }
+
+  header h1 {
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  header p {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.01em;
+  }
+
+  /* Top 3 Section */
+  .top-section { margin-bottom: 4.5rem; }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .top-item {
+    position: relative;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .top-item:first-child { padding-top: 0; }
+  .top-item:last-child { border-bottom: none; }
+
+  .top-item .rank {
+    font-family: var(--mono);
+    font-size: 3.5rem;
+    font-weight: 500;
+    color: var(--accent-dim);
+    position: absolute;
+    right: 0;
+    top: 2rem;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .top-item:first-child .rank { top: 0; }
+
+  .top-item h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.35;
+    margin-bottom: 0.6rem;
+    max-width: 85%;
+  }
+
+  .top-item h2 a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .top-item h2 a:hover { color: var(--accent); }
+
+  .top-meta {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.8rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .top-meta .sep { opacity: 0.3; }
+
+  .top-item .desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 60ch;
+  }
+
+  /* Rest Section (4-10) */
+  .rest-section { margin-bottom: 4rem; }
+
+  .rest-grid {
+    display: grid;
+    gap: 0;
+  }
+
+  .rest-item {
+    display: grid;
+    grid-template-columns: 2rem 1fr auto;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+
+  .rest-item:hover {
+    background: var(--surface);
+    margin: 0 -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-radius: 6px;
+  }
+
+  .rest-item:last-child { border-bottom: none; }
+
+  .rest-item .num {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    padding-top: 2px;
+  }
+
+  .rest-item .info h3 {
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.25rem;
+  }
+
+  .rest-item .info h3 a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .rest-item .info h3 a:hover { color: var(--accent); }
+
+  .rest-item .info .rest-desc {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .rest-item .rest-meta {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    padding-top: 2px;
+  }
+
+  /* Playlist CTA */
+  .playlist-cta {
+    margin-top: 4rem;
+    padding: 2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .playlist-cta .info h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+
+  .playlist-cta .info p {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+  }
+
+  .cta-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: opacity 0.15s;
+    white-space: nowrap;
+  }
+
+  .cta-link:hover { opacity: 0.85; }
+
+  /* References */
+  .refs {
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .refs h4 {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .refs ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .refs a {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .refs a:hover {
+    color: var(--text);
+    border-bottom-color: var(--border);
+  }
+
+  .date-stamp {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--text-secondary);
+    opacity: 0.6;
+    margin-top: 2rem;
+  }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    .container { padding: 2.5rem 1.2rem 4rem; }
+    .top-item .rank { display: none; }
+    .rest-item { grid-template-columns: 1.5rem 1fr; }
+    .rest-item .rest-meta { grid-column: 2; font-size: 0.65rem; margin-top: -0.2rem; }
+    .playlist-cta { grid-template-columns: 1fr; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <h1>Claude 必看 YouTube 视频 Top 10</h1>
+    <p>2026-06 / 面向有经验的 Claude 开发者 / 排除入门和 vibe coding 基础</p>
+  </header>
+
+  <!-- Top 3 -->
+  <section class="top-section">
+    <div class="section-label">Top 3</div>
+
+    <article class="top-item">
+      <span class="rank">01</span>
+      <h2><a href="https://www.youtube.com/watch?v=SlGRN8jh2RI" target="_blank">Boris Cherny: Why Coding Is Solved, and What Comes Next</a></h2>
+      <div class="top-meta">
+        <span>Sequoia AI Ascent 2026</span>
+        <span class="sep">/</span>
+        <span>2026-05-04</span>
+        <span class="sep">/</span>
+        <span>~30min</span>
+      </div>
+      <p class="desc">Claude Code 创造者在 Sequoia 顶级活动上阐述他为什么已经不写代码了，agent orchestration 的未来方向。目前最能代表 paradigm shift 的 talk，社区反响极高。</p>
+    </article>
+
+    <article class="top-item">
+      <span class="rank">02</span>
+      <h2><a href="https://www.youtube.com/watch?v=DlTCu_pNDHE&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=4" target="_blank">Live Coding with Boris Cherny & Jarred Sumner</a></h2>
+      <div class="top-meta">
+        <span>Code with Claude 2026 SF</span>
+        <span class="sep">/</span>
+        <span>2026-05-06</span>
+      </div>
+      <p class="desc">Bun 创建者展示 Robobun (coding agent) 如何比他本人贡献了更多 PR。真正的 advanced agentic workflow 实战，不是 toy demo。</p>
+    </article>
+
+    <article class="top-item">
+      <span class="rank">03</span>
+      <h2><a href="https://www.youtube.com/watch?v=7xco5Qd2Oo8&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=2" target="_blank">A Conversation with Dario Amodei & Daniela Amodei</a></h2>
+      <div class="top-meta">
+        <span>Code with Claude 2026 SF</span>
+        <span class="sep">/</span>
+        <span>2026-05-06</span>
+      </div>
+      <p class="desc">模型即将从个人生产力工具跃迁到替代整个团队和部门。讨论 verification research 如何打开 coding 之外的领域。战略级视野。</p>
+    </article>
+  </section>
+
+  <!-- 4-10 -->
+  <section class="rest-section">
+    <div class="section-label">Also worth watching</div>
+
+    <div class="rest-grid">
+      <article class="rest-item">
+        <span class="num">04</span>
+        <div class="info">
+          <h3><a href="https://www.youtube.com/watch?v=GMIWm5y90xA" target="_blank">Code with Claude 2026: Opening Keynote (SF)</a></h3>
+          <p class="rest-desc">产品路线图 + Claude Managed Agents 新能力。大会全局 overview。</p>
+        </div>
+        <span class="rest-meta">05-06</span>
+      </article>
+
+      <article class="rest-item">
+        <span class="num">05</span>
+        <div class="info">
+          <h3><a href="https://www.youtube.com/watch?v=2g8A53SIv3w" target="_blank">What's New in Claude Code</a></h3>
+          <p class="rest-desc">密集覆盖近期新功能 (hooks, subagents, skills)。适合已在用 Claude Code 的人快速 catch up。</p>
+        </div>
+        <span class="rest-meta">05-14</span>
+      </article>
+
+      <article class="rest-item">
+        <span class="num">06</span>
+        <div class="info">
+          <h3><a href="https://www.youtube.com/watch?v=igO8iyca2_g&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=13" target="_blank">Running an AI-native Engineering Org</a></h3>
+          <p class="rest-desc">Fiona Fung 分享 Anthropic 内部如何重构工程团队。"Claudify everything" 原则。</p>
+        </div>
+        <span class="rest-meta">05-06</span>
+      </article>
+
+      <article class="rest-item">
+        <span class="num">07</span>
+        <div class="info">
+          <h3><a href="https://www.youtube.com/watch?v=OXJO4LldSnc&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=14" target="_blank">The Thinking Lever</a></h3>
+          <p class="rest-desc">Matt Bleifer 深入讲解 test-time computation，thinking level + model 组合的 cost/quality tradeoff。</p>
+        </div>
+        <span class="rest-meta">05-06</span>
+      </article>
+
+      <article class="rest-item">
+        <span class="num">08</span>
+        <div class="info">
+          <h3><a href="https://www.youtube.com/watch?v=tP4MGcJ80Y0&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=10" target="_blank">The Capability Curve</a></h3>
+          <p class="rest-desc">Alex Albert 阐述模型能力指数增长曲线，强调 evals 重要性。</p>
+        </div>
+        <span class="rest-meta">05-06</span>
+      </article>
+
+      <article class="rest-item">
+        <span class="num">09</span>
+        <div class="info">
+          <h3><a href="https://www.youtube.com/watch?v=EdmuYPBt_EM&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=9" target="_blank">How Datadog Built a Universal Machine Tool for Claude Code</a></h3>
+          <p class="rest-desc">Sesh Nalla 分享企业级 agentic 开发框架 Temper。工程师从写代码变成引导系统演化。</p>
+        </div>
+        <span class="rest-meta">05-06</span>
+      </article>
+
+      <article class="rest-item">
+        <span class="num">10</span>
+        <div class="info">
+          <h3><a href="https://www.youtube.com/watch?v=7oO37GRhwGk&list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR&index=8" target="_blank">Getting More Out of the Claude Platform</a></h3>
+          <p class="rest-desc">Brad Abrams 讲解 context management + prompt caching 优化，advisor-executor 降本策略。</p>
+        </div>
+        <span class="rest-meta">05-06</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- Playlist CTA -->
+  <div class="playlist-cta">
+    <div class="info">
+      <h3>Code with Claude 2026 SF - Full Playlist</h3>
+      <p>全部录像，参会者评价"没有一场烂 session"。Workshop 代码仓库公开在 GitHub。</p>
+    </div>
+    <a class="cta-link" href="https://www.youtube.com/playlist?list=PLmWCw1CzcFim2obQ-w3ohbULOfwp5lApR" target="_blank">Open Playlist</a>
+  </div>
+
+  <!-- References -->
+  <footer class="refs">
+    <h4>References</h4>
+    <ul>
+      <li><a href="https://chrisebert.net/code-with-claude-2026-recordings-now-available/">Session 总结 & 录像汇总</a></li>
+      <li><a href="https://chrisebert.net/notes-from-code-with-claude-2026/">Code with Claude 2026 参会笔记</a></li>
+      <li><a href="https://howborisusesclaudecode.com/">howborisusesclaudecode.com - 107 条使用技巧</a></li>
+      <li><a href="https://github.com/anthropics/cwc-workshops">anthropics/cwc-workshops (GitHub)</a></li>
+    </ul>
+    <p class="date-stamp">Curated 2026-06-27</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
